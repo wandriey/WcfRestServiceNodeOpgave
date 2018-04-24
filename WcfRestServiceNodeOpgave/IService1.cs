@@ -14,12 +14,10 @@ namespace WcfRestServiceNodeOpgave
     {
 
         [OperationContract]
-        string GetData(int value);
-
-        [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
-
-        // TODO: Add your service operations here
+        //Routing til metoden "GetAll".
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json,
+        UriTemplate = "getall/")]
+        List<Feedback> GetAll();
     }
 
 

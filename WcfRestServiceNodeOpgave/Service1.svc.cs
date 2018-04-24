@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -12,10 +13,43 @@ namespace WcfRestServiceNodeOpgave
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-        public string GetData(int value)
+        private const string ConnectionString = 
+            "Server=tcp:myservereasj.database.windows.net,1433;Initial " +
+            "Catalog=mydatabase;Persist Security Info=False;User ID=Serveradmin;" +
+            "Password=Test12345;MultipleActiveResultSets=False;Encrypt=True;" +
+            "TrustServerCertificate=False;Connection Timeout=30;";
+
+        public List<Feedback> GetAll()
         {
-            return string.Format("You entered: {0}", value);
+            //listen der skal vises i browseren
+            List<Feedback> OList = new List<Feedback>();
+
+            const string sqlstring = "SELECT Id, Title, Message, Name FROM dbo.WcfRestServiceNodeOpgaveTable";
+
+            using (var DBconnection = new SqlConnection(ConnectionString))
+            {
+                DBconnection.Open();
+                var sqlcommand = new SqlCommand(sqlstring, DBconnection);
+
+                using (SqlDataReader reader = sqlcommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Feedback feedback = new Feedback();
+                        feedback.id = reader.GetInt32(0);
+                        feedback.title = reader.GetString(1).Trim();
+                        feedback.message = reader.GetString(2).Trim();
+                        feedback.name = reader.GetString(3).Trim();    //trim fjerne whitespaces. 
+
+                        OList.Add(feedback);
+                    }
+                }
+                return OList;
+            }
+
         }
+
+
 
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
