@@ -24,7 +24,7 @@ namespace WcfRestServiceNodeOpgave
             //listen der skal vises i browseren
             List<Feedback> OList = new List<Feedback>();
 
-            const string sqlstring = "SELECT Id, Title, Message, Name FROM dbo.WcfRestServiceNodeOpgaveTable";
+            const string sqlstring = "SELECT * FROM dbo.WcfRestServiceNodeOpgaveTable where id?@id";
 
             using (var DBconnection = new SqlConnection(ConnectionString))
             {
@@ -46,22 +46,8 @@ namespace WcfRestServiceNodeOpgave
                 }
                 return OList;
             }
-
         }
 
-
-
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
+        
     }
 }

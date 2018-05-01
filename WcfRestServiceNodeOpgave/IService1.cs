@@ -18,6 +18,25 @@ namespace WcfRestServiceNodeOpgave
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json,
         UriTemplate = "getall/")]
         List<Feedback> GetAll();
+
+
+        //[OperationContract]
+        //[WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, 
+        //    UriTemplate = "feedback?id={id}")] //en customer
+        //Feedback GetFeedback(int id
+
+        //[OperationContract]
+        //[WebInvoke(Method = "DELETE", ResponseFormat = WebMessageFormat.Json, UriTemplate = "deleteCustomer?id={id}")]
+        //void DeleteCustomer(int id);
+
+        //[OperationContract]
+        //[WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, UriTemplate = "insertCustomer/")]
+        //void InsertCustomer(Customer customer);
+
+        //[OperationContract]
+        //[WebInvoke(Method = "PUT", ResponseFormat = WebMessageFormat.Json, UriTemplate = "updateCustomer?id={id}")]
+        //void UpdateCustomer(Customer updatedCustomer, int id);
+
     }
 
 
